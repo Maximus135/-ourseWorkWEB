@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "backend for pokemons battle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "rimraf ./dist && babel -d ./dist ./src -s && node dist/index.js"
+  },
+  "author": "Maxim",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-node": "0.0.1-security",
+    "babel-preset-env": "^1.7.0",
+    "express": "^4.17.1",
+    "regenerator-runtime": "^0.13.7",
+    "rimraf": "^3.0.2",
+    "socketio": "^1.0.0",
+    "twitch-js": "^1.2.17"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1"
+  },
+  "files": [
+    "dist"
+  ]
+}
