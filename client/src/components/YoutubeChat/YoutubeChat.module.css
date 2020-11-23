@@ -1,5 +1,5 @@
 .wrapper {
-    margin-right: 20px;
+    margin-left: 20px;
     align-self: center;
     display: flex;
     flex-direction: column;
@@ -22,6 +22,10 @@
     background-color: rgba(255, 255, 255, 0.712);
     border-radius: 3px;
     overflow-x: hidden;
+}
+
+.chat:hover {
+    overflow-y: scroll;
 }
 
 ::-webkit-scrollbar {
@@ -52,10 +56,10 @@
     align-items: center;
 }
 
-.buttonTwitch {
+.buttonYoutube {
     width: 125px;
     height: 25px;
-    background-color: rgba(100, 65, 165, 0.849);
+    background-color: rgba(196, 48, 43, 0.849);
     border-radius: 2px;
     border: none;
     outline: none;
@@ -77,18 +81,18 @@
 .inputName {
     background-color: none;
     border: none;
-    border-bottom: 1px solid rgb(100, 65, 165);
+    border-bottom: 1px solid rgb(196, 48, 43);
     outline: none;
     background-color: rgba(224, 226, 228, 0.829);
 }
 .inputKeyWord {
     background-color: none;
     border: none;
-    border-bottom: 1px solid rgb(100, 65, 165);
+    border-bottom: 1px solid rgb(196, 48, 43);
     outline: none;
     background-color: rgba(224, 226, 228, 0.829);
 }
 
 .inputs ::placeholder {
-    color: rgb(100, 65, 165);
+    color: rgb(196, 48, 43);
 }

@@ -1,6 +1,9 @@
 import twitch from 'twitch-js';
 
-export const TwitchParser = (channel, word, getTwitchMesage) =>{
+const connections = [];
+export const TwitchParser = (channel, word, getTwitchMesage, type=true) =>{
+
+let client; 
 
 const options = {
     connection: {
@@ -9,18 +12,31 @@ const options = {
     },
     identity: {
         username: 'bot_rchiem',
-        password: 'oauth:3ydg9ojjthbb135lgpurekwdr8wu9f',
+        password: process.env.TWITCH_PASSWORD,
     },
     channels: [channel],
 };
 
-const client = new twitch.client(options);
-client.connect();
+if(type){
+    client = new twitch.client(options);
+    client.connect();
 
-client.on('chat', (channel, user, message, self)=> {
-    if (message) {
-        getTwitchMesage(message);
-    }
+    connections.push(client);
+
+    client.on('chat', (channel, user, message, self)=> {
+        if(word !== ''){
+            if (message === word) {
+                getTwitchMesage(user, message);
+            }
+        }else{
+            getTwitchMesage(user, message);
+        }
 });
+}else{
+    if(connections.length !== 0){
+        const currentclient  = connections.pop();
+        currentclient.disconnect();
+    }
+}
 
 };

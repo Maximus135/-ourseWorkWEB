@@ -13,11 +13,14 @@ let connections = [];
 io.on('connection', (socket) =>{
     connections.push(socket);
     console.log('connected');
-    socket.on('startTwitchParser' , start=>{
-        const getTwitchMesage = (message)=>{
-            socket.emit('newMessageFromTwitch', {message: message});
+    socket.on('startTwitchParser' , start => {
+        const getTwitchMesage = (user, message)=>{
+            socket.emit('newMessageFromTwitch', {user: user, message: message});
         }
-        TwitchParser('ybicanoooobov', 'привет', getTwitchMesage);
+        TwitchParser(start.nickName, start.keyWord, getTwitchMesage);
+    })
+    socket.on('stopTwitchParser', stop => {
+        TwitchParser('', '', undefined, false);
     })
     socket.on('disconnect',(socket) => {
         connections.splice(connections.indexOf(socket), 1);

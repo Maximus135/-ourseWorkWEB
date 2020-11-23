@@ -1,0 +1,50 @@
+.wrapper {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 600px;
+}
+
+.users {
+    margin-top: 50px; /* временно */
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 500px;
+    background-color: rgba(255, 255, 255, 0.712);
+    border-radius: 3px;
+    overflow-x: hidden;
+}
+
+.users:hover {
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat:hover {
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.buttonArea {
+    display: flex;
+    flex-direction: row;
+    width: 350px;
+    height: 50px;
+    background-color: rgba(224, 226, 228, 0.829);
+    justify-content: center;
+    align-items: center;
+}
