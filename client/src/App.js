@@ -10,13 +10,22 @@ const socket = io.connect('http://localhost:4000');
 const App = () =>{
 
   const [twitchMessage, addTwitchMessage] = useState({});
+  const [youtubeMessage, addYoutubeMessage] = useState({});
 
   const startTwitchParsing = (nickName, keyWord) =>{
     socket.emit('startTwitchParser', {nickName: nickName, keyWord: keyWord});
   }
 
+  const startYoutubeParsing = (streamKey, keyWord) =>{
+    socket.emit('startYoutubeParser', {streamKey: streamKey, keyWord: keyWord});
+  }
+
   const stopTwitchParsing = () =>{
     socket.emit('stopTwitchParser', {});
+  }
+
+  const stopYoutubeParsing = () =>{
+    socket.emit('stopYoutubeParser', {});
   }
 
   useEffect(()=>{
@@ -26,6 +35,9 @@ const App = () =>{
     socket.on('newMessageFromTwitch', socket=>{
       addTwitchMessage(socket);
     });
+    socket.on('newMessageFromYoutube', socket=>{
+      addYoutubeMessage(socket);
+    })
   })
 
 
@@ -37,10 +49,13 @@ const App = () =>{
           startTwitchParsing={startTwitchParsing} 
           stopTwitchParsing={stopTwitchParsing}>
         </TwitchChat>
-        <Participants>
-        </Participants>
-        <YoutubeChat>
-          
+        {/* <Participants>
+        </Participants> */}
+        <YoutubeChat
+          message={youtubeMessage.message} 
+          user={youtubeMessage.user} 
+          startYoutubeParsing={startYoutubeParsing} 
+          stopYoutubeParsing={stopYoutubeParsing}>
         </YoutubeChat>
     </div>
   )

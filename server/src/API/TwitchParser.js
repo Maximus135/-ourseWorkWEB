@@ -1,7 +1,7 @@
 import twitch from 'twitch-js';
 
 const connections = [];
-export const TwitchParser = (channel, word, getTwitchMesage, type=true) =>{
+export const TwitchParser = (channel, word, getTwitchMessage, type=true) =>{
 
 let client; 
 
@@ -12,7 +12,7 @@ const options = {
     },
     identity: {
         username: 'bot_rchiem',
-        password: process.env.TWITCH_PASSWORD,
+        password: 'oauth:3ydg9ojjthbb135lgpurekwdr8wu9f',
     },
     channels: [channel],
 };
@@ -26,10 +26,10 @@ if(type){
     client.on('chat', (channel, user, message, self)=> {
         if(word !== ''){
             if (message === word) {
-                getTwitchMesage(user, message);
+                getTwitchMessage(user, message);
             }
         }else{
-            getTwitchMesage(user, message);
+            getTwitchMessage(user, message);
         }
 });
 }else{

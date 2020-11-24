@@ -3,12 +3,13 @@ import TwitchMessage from '../TwitchMessage/TwitchMessage';
 import * as Styles from './TwitchChat.module.css';
 import {ReactComponent as TwitchLogo} from '../../Images/twitchLogo.svg';
 
-const messages = [];
+const twitchMessages = [];
+
 const TwitchChat = ({message, user, startTwitchParsing, stopTwitchParsing}) =>{
 
     const [startStop, setStartStop] = useState(true);
     const buttonClickStart = () => {
-        messages.length = 0; // подумать на счет этого
+        twitchMessages.length = 0; // подумать на счет этого
         if(nickName.current.value !== ''){
             startTwitchParsing(nickName.current.value, keyWord.current.value);
             setStartStop(!startStop);
@@ -19,33 +20,34 @@ const TwitchChat = ({message, user, startTwitchParsing, stopTwitchParsing}) =>{
 
     const buttonClickStop = () => {
         stopTwitchParsing();
-        messages.length = 0; // подумать на счет этого
+        twitchMessages.length = 0; // подумать на счет этого
         setStartStop(!startStop);
     } 
-    const messagesEndRef = useRef(null);
+    const messagesTwitchEndRef = useRef(null);
     const nickName = useRef(null);
     const keyWord = useRef(null);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    const scrollToBottomTwitchChat = () => {
+        messagesTwitchEndRef.current.scrollIntoView({ behavior: "smooth" })
     }
 
     useEffect(()=>{
         // console.log(user); // почему-то проблемы с 1 сообщением 
         if(message !== undefined && user['display-name'] !== undefined && !startStop){
-        messages.push( <TwitchMessage message={message} user={user['display-name']} /> );
+            twitchMessages.push( <TwitchMessage message={message} user={user['display-name']} /> );
         }
-        if(messages.length === 50){
-            messages.shift();
+        if(twitchMessages.length === 50){
+            twitchMessages.shift();
         }
-        scrollToBottom();
-    })
+        console.log(messagesTwitchEndRef);
+        scrollToBottomTwitchChat();
+    },[scrollToBottomTwitchChat])
 
 return <div className={Styles.wrapper}>
             <TwitchLogo className={Styles.logo}/>
             <div className={Styles.chat}>
-                {messages.map((elem)=>(elem))}
-                <div ref={messagesEndRef} />
+                {twitchMessages.map((elem)=>(elem))}
+                <div ref={messagesTwitchEndRef} />
             </div>
             <div className={Styles.buttonArea}>
                 <div className={Styles.inputs}>

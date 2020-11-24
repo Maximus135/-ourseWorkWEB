@@ -1,0 +1,30 @@
+.wrapper {
+    padding-right: 8px;
+    width: 342px;
+    border-bottom: 1px black solid;
+}
+
+.logoName {
+    display: flex;
+    flex-direction: row;
+}
+
+.logo {
+    margin-top: 4px;
+    padding-right: 3px;
+    width: 16px;
+    height: 16px;
+}
+
+.messageText {
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+.name {
+    display: flex;
+    margin-left: 3px;
+    font-size: 16px;
+    height: 18px;
+    padding-right: 5px;
+}
