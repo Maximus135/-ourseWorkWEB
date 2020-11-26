@@ -1,62 +1,59 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TwitchMessage from '../TwitchMessage/TwitchMessage';
 import * as Styles from './TwitchChat.module.css';
-import {ReactComponent as TwitchLogo} from '../../Images/twitchLogo.svg';
+import { ReactComponent as TwitchLogo } from '../../Images/twitchLogo.svg';
 
 const twitchMessages = [];
 
-const TwitchChat = ({message, user, startTwitchParsing, stopTwitchParsing}) =>{
+const TwitchChat = ({ message, user, startTwitchParsing, stopTwitchParsing, stopTwitchButton }) => {
 
     const [startStop, setStartStop] = useState(true);
+
     const buttonClickStart = () => {
         twitchMessages.length = 0; // подумать на счет этого
-        if(nickName.current.value !== ''){
+        if (nickName.current.value !== '') {
             startTwitchParsing(nickName.current.value, keyWord.current.value);
             setStartStop(!startStop);
-        }else{
+        } else {
             alert('Insert channel NickName!')
         }
     }
 
     const buttonClickStop = () => {
         stopTwitchParsing();
-        twitchMessages.length = 0; // подумать на счет этого
+        twitchMessages.length = 0;
         setStartStop(!startStop);
-    } 
+    }
+
     const messagesTwitchEndRef = useRef(null);
     const nickName = useRef(null);
     const keyWord = useRef(null);
 
-    const scrollToBottomTwitchChat = () => {
-        messagesTwitchEndRef.current.scrollIntoView({ behavior: "smooth" })
-    }
-
-    useEffect(()=>{
-        // console.log(user); // почему-то проблемы с 1 сообщением 
-        if(message !== undefined && user['display-name'] !== undefined && !startStop){
-            twitchMessages.push( <TwitchMessage message={message} user={user['display-name']} /> );
+    useEffect(() => {
+        if (message !== undefined && user['display-name'] !== undefined && !startStop) {
+            twitchMessages.push(<TwitchMessage message={message} user={user['display-name']} />);
         }
-        if(twitchMessages.length === 50){
+        if (twitchMessages.length === 50) {
             twitchMessages.shift();
         }
-        console.log(messagesTwitchEndRef);
-        scrollToBottomTwitchChat();
-    },[scrollToBottomTwitchChat])
+        messagesTwitchEndRef.current.scrollIntoView({ behavior: "smooth" });
 
-return <div className={Styles.wrapper}>
-            <TwitchLogo className={Styles.logo}/>
-            <div className={Styles.chat}>
-                {twitchMessages.map((elem)=>(elem))}
-                <div ref={messagesTwitchEndRef} />
-            </div>
-            <div className={Styles.buttonArea}>
-                <div className={Styles.inputs}>
-                    <input ref={nickName} className={Styles.inputName} placeholder='Twitch NickName'></input>
-                    <input ref={keyWord} className={Styles.inputKeyWord} placeholder='KeyWord'></input>
-                </div>
-            <button className={Styles.buttonTwitch} onClick={startStop ? buttonClickStart : buttonClickStop}>{startStop? 'Start' : 'Stop'}</button>
-            </div>
+    }, [messagesTwitchEndRef, message, user, startStop])
+
+    return <div className={Styles.wrapper}>
+        <TwitchLogo className={Styles.logo} />
+        <div className={Styles.chat}>
+            {twitchMessages.map((elem) => (elem))}
+            <div ref={messagesTwitchEndRef} />
         </div>
+        <div className={Styles.buttonArea}>
+            <div className={Styles.inputs}>
+                <input ref={nickName} className={Styles.inputName} placeholder='Twitch NickName'></input>
+                <input ref={keyWord} className={Styles.inputKeyWord} placeholder='KeyWord'></input>
+            </div>
+            <button className={Styles.buttonTwitch} onClick={startStop ? buttonClickStart : buttonClickStop}>{startStop ? 'Start' : 'Stop'}</button>
+        </div>
+    </div>
 }
 
 export default TwitchChat;

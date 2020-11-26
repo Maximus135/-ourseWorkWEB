@@ -61,6 +61,7 @@
     outline: none;
     color: hsl(240, 7%, 94%);
     font-size: 17px;
+    cursor: pointer;
 }
 
 .buttonTwitch:hover,
